@@ -4,23 +4,21 @@
     <title>Loading...</title>
     <meta http-equiv="refresh" content="0; url=https://docs.dfda.earth">
     <script>
-      function redirectDomains(domainMap) {
-          const currentDomain = window.location.hostname;
-          const queryParams = window.location.search;
+function redirectDomains(domainMap) {
+    const currentUrl = new URL(window.location.href);
+    const currentDomain = currentUrl.hostname;
 
-          for (let fromDomain in domainMap) {
-              if (currentDomain === fromDomain) {
-                  window.location.href = domainMap[fromDomain] + queryParams;
-                  break;
-              }
-          }
-      }
-      redirectDomains({
-        "docs.fdai.earth": "https://docs.dfda.earth",
-        "docs.defda.org": "https://docs.dfda.earth",
-        "wiki.fdai.earth": "https://docs.dfda.earth",
-        "wiki.defda.org": "https://docs.dfda.earth",
-      });
+    if (domainMap.hasOwnProperty(currentDomain)) {
+        currentUrl.hostname = new URL(domainMap[currentDomain]).hostname;
+        window.location.href = currentUrl.href;
+    }
+}
+redirectDomains({
+  "docs.fdai.earth": "https://docs.dfda.earth",
+  "docs.defda.org": "https://docs.dfda.earth",
+  "wiki.fdai.earth": "https://docs.dfda.earth",
+  "wiki.defda.org": "https://docs.dfda.earth",
+});
     </script>
   </head>
   <body>
